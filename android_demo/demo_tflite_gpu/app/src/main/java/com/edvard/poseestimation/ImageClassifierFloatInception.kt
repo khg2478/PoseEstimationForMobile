@@ -37,7 +37,7 @@ class ImageClassifierFloatInception private constructor(
     modelPath: String,
     numBytesPerChannel: Int = 4 // a 32bit float value requires 4 bytes
   ) : ImageClassifier(activity, imageSizeX, imageSizeY, modelPath, numBytesPerChannel) {
-
+  var smoothingFilter = SmoothingFilter(20, 5);
   /**
    * An array to hold inference results, to be feed into Tensorflow Lite as outputs.
    * This isn't part of the super class, because we need a primitive array here.
@@ -79,7 +79,7 @@ class ImageClassifierFloatInception private constructor(
     if (!CameraActivity.isOpenCVInit)
       return
 
-    // Gaussian Filter 5*5
+    /*// Gaussian Filter 5*5
     if (mMat == null)
       mMat = Mat(outputW, outputH, CvType.CV_32F)
 
@@ -121,9 +121,14 @@ class ImageClassifierFloatInception private constructor(
 
       mPrintPointArray!![0][i] = maxX
       mPrintPointArray!![1][i] = maxY
-//      Log.i("TestOutPut", "pic[$i] ($maxX,$maxY) $max")
+    }*/
+    var filtered_keypoints = smoothingFilter.getFilteredKeypoints(heatMapArray)
+    for (i in 0..13) {
+      mPrintPointArray!![0][i] = filtered_keypoints[i][0]
+      mPrintPointArray!![1][i] = filtered_keypoints[i][1]
     }
   }
+
 
   private operator fun get(
     x: Int,

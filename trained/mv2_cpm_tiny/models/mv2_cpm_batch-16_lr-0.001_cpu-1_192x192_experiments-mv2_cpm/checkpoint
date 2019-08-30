@@ -1,0 +1,3 @@
+model_checkpoint_path: "/Users/hangilkang/work/pose_estimation/PoseEstimationForMobile/trained/mv2_cpm_tiny/models/mv2_cpm_batch-16_lr-0.001_cpu-1_192x192_experiments-mv2_cpm/model-4000"
+all_model_checkpoint_paths: "/Users/hangilkang/work/pose_estimation/PoseEstimationForMobile/trained/mv2_cpm_tiny/models/mv2_cpm_batch-16_lr-0.001_cpu-1_192x192_experiments-mv2_cpm/model-2000"
+all_model_checkpoint_paths: "/Users/hangilkang/work/pose_estimation/PoseEstimationForMobile/trained/mv2_cpm_tiny/models/mv2_cpm_batch-16_lr-0.001_cpu-1_192x192_experiments-mv2_cpm/model-4000"

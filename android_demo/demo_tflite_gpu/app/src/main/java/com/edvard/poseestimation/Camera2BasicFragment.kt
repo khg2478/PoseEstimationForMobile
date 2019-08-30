@@ -351,7 +351,7 @@ class Camera2BasicFragment : Fragment(), FragmentCompat.OnRequestPermissionsResu
 
         // We don't use a front facing camera in this sample.
         val facing = characteristics.get(CameraCharacteristics.LENS_FACING)
-        if (facing != null && facing == CameraCharacteristics.LENS_FACING_FRONT) {
+        if (facing != null && facing == CameraCharacteristics.LENS_FACING_BACK) {
           continue
         }
 

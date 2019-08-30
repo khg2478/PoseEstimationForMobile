@@ -20,10 +20,11 @@ import time
 import numpy as np
 import configparser
 import dataset
+import dataset_tfrecord
 
 from datetime import datetime
 
-from dataset import get_train_dataset_pipeline, get_valid_dataset_pipeline
+from dataset import get_train_dataset_pipeline, get_valid_dataset_pipeline, get_dataset_tfrecord_pipeline
 from networks import get_network
 from dataset_prepare import CocoPose
 from dataset_augment import set_network_input_wh, set_network_scale
@@ -97,6 +98,7 @@ def main(argv=None):
         os.makedirs(params['logpath'])
 
     dataset.set_config(params)
+    dataset_tfrecord.set_config(params)
     set_network_input_wh(params['input_width'], params['input_height'])
     set_network_scale(params['scale'])
 
@@ -116,6 +118,8 @@ def main(argv=None):
     with tf.Graph().as_default(), tf.device("/cpu:0"):
         train_dataset = get_train_dataset_pipeline(params['batchsize'], params['max_epoch'], buffer_size=100)
         valid_dataset = get_valid_dataset_pipeline(params['batchsize'], params['max_epoch'], buffer_size=100)
+        #train_dataset = get_dataset_tfrecord_pipeline(params['batchsize'], params['max_epoch'], buffer_size=100, is_train=True)
+        #valid_dataset = get_dataset_tfrecord_pipeline(params['batchsize'], params['max_epoch'], buffer_size=100, is_train=False)
 
         train_iterator = train_dataset.make_one_shot_iterator()
         valid_iterator = valid_dataset.make_one_shot_iterator()
